@@ -1,0 +1,38 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+.images{
+    display: flex;
+    transition: all 0.3s;
+
+}
+
+.windowView{
+height:600px;
+width:800px;
+margin:0 auto;
+overflow: hidden;
+
+} 
+
+.buttons{
+    height:30px;
+    width:80px;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+
+}
+
+.controls{
+    height:30px;
+    width:200px;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+
+}
