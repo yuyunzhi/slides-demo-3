@@ -1,9 +1,12 @@
 *{
     margin:0;
     padding:0;
-    box-sizing: border-box;
+    outline:none;
 }
 
+body{
+    background:rgb(239,239,239)
+}
 
 .images{
     display: flex;
@@ -15,6 +18,7 @@
 height:600px;
 width:800px;
 margin:0 auto;
+border:1px solid rgb(231,231,231);
 overflow: hidden;
 
 } 
@@ -25,14 +29,70 @@ overflow: hidden;
     display: block;
     margin: 10px auto;
     text-align: center;
-
 }
 
-.controls{
-    height:30px;
-    width:200px;
-    display: block;
-    margin: 10px auto;
-    text-align: center;
+#previous{
+    background:white;
+    height:65px;
+    width:65px;
+    border-radius:50%;
+    border:none;
+    position: absolute;
+    bottom:55%;
+    left:16%;
+}
 
+#previous::before{
+    content:"";
+    display: block;
+    position: absolute;
+    border-top:2px solid rgb(0,125,255);
+    width:29px;
+    transform: rotate(-45deg);
+    right:32%;
+    top:35%;
+
+}
+#previous::after{
+    content:"";
+    display: block;
+    position: absolute;
+    border-top:2px solid rgb(0,125,255);
+    width:29px;
+    transform: rotate(45deg);
+    right:32%;
+    top:65%;
+}
+
+#next{
+    background:white;
+    height:65px;
+    width:65px;
+    border-radius:50%;
+    border:none;
+    position: absolute;
+    bottom:55%;
+    right:16%;
+}
+
+#next::before{
+    content:"";
+    display: block;
+    position: absolute;
+    border-top:2px solid rgb(0,125,255);
+    width:29px;
+    transform: rotate(45deg);
+    left:32%;
+    top:35%;
+}
+
+#next::after{
+    content:"";
+    display: block;
+    position: absolute;
+    border-top:2px solid rgb(0,125,255);
+    width:29px;
+    transform: rotate(-45deg);
+    left:32%;
+    top:65%;
 }

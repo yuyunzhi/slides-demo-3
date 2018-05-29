@@ -5,7 +5,7 @@ let current = 0
 let $images = $slides.children('img')
 let $buttonsNumber = $images.length
 let $width = $('.windowView').width()
-
+let duration = 300
 /**无缝轮播逻辑**/
 init($buttonsNumber)
 
@@ -15,7 +15,6 @@ bindEvents();
 
 
 
-/*
 //计时器，自动播放，同时解决页面hidde的Bug
 document.addEventListener("visibilitychange",function(e){
     if(document.hidden){
@@ -41,7 +40,7 @@ $('.container').on('mouseleave',function(){
     },2000)
 })
 
-*/
+
 
 /*********init********** */
 
@@ -85,7 +84,7 @@ function clickNext(){
         setTimeout(()=>{
             goToSlide(current+1)
             clickNext()
-        },300)
+        },duration)
     })
     
 }
@@ -96,7 +95,7 @@ function clickPrevious(){
         setTimeout(()=>{
             goToSlide(current-1)
             clickPrevious()
-        },300)
+        },duration)
     })
 }
 
