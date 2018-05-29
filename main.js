@@ -4,40 +4,16 @@ let $slides = $('#slides')
 let current = 0
 let $images = $slides.children('img')
 let $buttonsNumber = $images.length
-
+let $width = $('.windowView').width()
 
 /**无缝轮播逻辑**/
 init($buttonsNumber)
 
 bindEvents();
 
+/**无缝轮播逻辑**/
 
 
-
-
-
-
-//鼠标点击下一张
-function clickNext(){
-    $('#next').one('click',function(){
-        setTimeout(()=>{
-            goToSlide(current+1)
-            clickNext()
-        },300)
-    })
-    
-}
-
-
-//鼠标点击上一张
-function clickPrevious(){
-    $('#previous').one('click',function(){
-        setTimeout(()=>{
-            goToSlide(current-1)
-            clickPrevious()
-        },300)
-    })
-}
 
 /*
 //计时器，自动播放，同时解决页面hidde的Bug
@@ -69,11 +45,10 @@ $('.container').on('mouseleave',function(){
 
 /*********init********** */
 
-
 function init(buttonsNumber){
     makeFakeSlides()  //创建首尾两张“假图”
     createButtons(buttonsNumber) //创建button
-    $slides.css({transform:'translateX(-800px)'}) //图片移动到第一张真图
+    $slides.css({transform:`translateX(${-$width}px)`}) //图片移动到第一张真图
 }
 
 //创建button
@@ -115,7 +90,6 @@ function clickNext(){
     
 }
 
-
 //鼠标点击上一张
 function clickPrevious(){
     $('#previous').one('click',function(){
@@ -149,29 +123,32 @@ function goToSlide(index){
 
     if(current === $buttons.length-1 && index === 0){
         //最后一张到第一张
+        let n = -($buttons.length+1)*$width
         $slides.css({
-            transform:`translateX(${-($buttons.length+1)*800}px)`
+            transform:`translateX(${n}px)`
         })
         .one('transitionend',function(){
             $slides.hide()
             .offset()//这是小技巧，hide() show()之间插入offset()，阻断浏览器同时执行
-            $slides.css({transform:'translateX(-800px)'})
+            $slides.css({transform:`translateX(${-$width}px)`})
             .show()
         })   
     }else if(current === 0 && index === $buttons.length-1){
         //第一张到最后一张
+        let n = -(index+1)*$width
         $slides.css({
             transform:'translateX(0px)'
         })
         .one('transitionend',function(){
             $slides.hide()
             .offset()
-            $slides.css({transform:`translateX(${-(index+1)*800}px)`})
+            $slides.css({transform:`translateX(${n}px)`})
             .show()
         })  
     }else{
+        let n = -(index+1)*$width
         $slides.css({
-            transform:`translateX(${-(index+1)*800}px)`
+            transform:`translateX(${n}px)`
         })
     }
     current = index
