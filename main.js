@@ -6,41 +6,32 @@ let $images = $slides.children('img')
 let $buttonsNumber = $images.length
 let $width = $('.windowView').width()
 let duration = 300
+let autoPlaySpeed =1500
+let whichPicture = 1  //(1~$images.length)
+
 /**无缝轮播逻辑**/
 init($buttonsNumber)
 
-bindEvents();
 
-/**无缝轮播逻辑**/
-
-
+bindEvents()
 
 //计时器，自动播放，同时解决页面hidde的Bug
 document.addEventListener("visibilitychange",function(e){
     if(document.hidden){
         window.clearInterval(timer)
     }else{
-        timer = setInterval(function(){
-            goToSlide(current+1)
-        },2000)
+         timer = setInterval(function(){
+             goToSlide(current+1)
+    },autoPlaySpeed)
     }
 })
 
 let timer = setInterval(function(){
     goToSlide(current+1)
-},2000)
-
-$('.container').on('mouseenter',function(){
-    window.clearInterval(timer)
-})
-
-$('.container').on('mouseleave',function(){
-    timer = setInterval(function(){
-        goToSlide(current+1)
-    },2000)
-})
+},autoPlaySpeed)
 
 
+/**无缝轮播逻辑**/
 
 /*********init********** */
 
@@ -48,12 +39,14 @@ function init(buttonsNumber){
     makeFakeSlides()  //创建首尾两张“假图”
     createButtons(buttonsNumber) //创建button
     $slides.css({transform:`translateX(${-$width}px)`}) //图片移动到第一张真图
+    $(`.container>.buttons>button:nth-child(${whichPicture})`).addClass('active')
+    
 }
 
 //创建button
 function createButtons(buttonsNumber){
     for(let num =0;num<buttonsNumber;num++){
-        $button = $(`<button>${num+1}</button>`)
+        $button = $(`<button></button>`)
         $button.addClass('button')
         $('.buttons').append($button)
     }
@@ -76,6 +69,8 @@ function bindEvents(){
     clickNext()
     clickPrevious()
     clickNumber()
+    mouseEnterStop()
+    mouseLeavePlay()
 }
 
 //鼠标点击下一张
@@ -108,8 +103,23 @@ function clickNumber(){
     })
 }
 
-/**********bindEvents**********/
+//鼠标进入图片，停止播放
+function mouseEnterStop(){
+    $('.container').on('mouseenter',function(){
+        window.clearInterval(timer)
+    })
+}
 
+//鼠标离开图片，继续播放
+function mouseLeavePlay(){
+    $('.container').on('mouseleave',function(){
+        timer = setInterval(function(){
+            goToSlide(current+1)
+        },2000)
+    })
+}
+
+/**********bindEvents**********/
 
 function goToSlide(index){
 
@@ -150,6 +160,11 @@ function goToSlide(index){
             transform:`translateX(${n}px)`
         })
     }
-    current = index
+
+    whichPicture=index+1
+    $(`.container>.buttons>button`).removeClass('active')
+    $(`.container>.buttons>button:nth-child(${whichPicture})`).addClass('active')
+
+   current = index
 }
 
