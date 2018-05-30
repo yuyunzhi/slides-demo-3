@@ -115,7 +115,7 @@ function mouseLeavePlay(){
     $('.container').on('mouseleave',function(){
         timer = setInterval(function(){
             goToSlide(current+1)
-        },2000)
+        },autoPlaySpeed)
     })
 }
 
@@ -167,4 +167,5 @@ function goToSlide(index){
 
    current = index
 }
+
 
